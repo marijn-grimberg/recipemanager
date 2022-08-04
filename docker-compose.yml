@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: postgres
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - spring-cloud-network
+    environment:
+      POSTGRES_PASSWORD: password
+  recipe-manager:
+    container_name: recipe-manager
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: abnamro/recipe-manager:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-cloud-network
+networks:
+  spring-cloud-network:
+    driver: bridge
