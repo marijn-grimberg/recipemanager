@@ -162,16 +162,15 @@ class RecipesResourceTest {
     void givenRecipes_whenAddRecipe_thenReturnAddedRecipe() throws Exception {
         createTestRecipes();
 
-        mockMvc.perform(post("/api/recipes").contentType(MediaType.APPLICATION_JSON).content("""
-                        {
-                          "servings": 7,
-                          "instructions": "instructions4",
-                          "ingredients": [
-                            "ingredient5",
-                            "ingredient6"
-                          ],
-                          "vegetarian": true
-                        }"""))
+        mockMvc.perform(post("/api/recipes").contentType(MediaType.APPLICATION_JSON).content("{\n" +
+                        "                          \"servings\": 7,\n" +
+                        "                          \"instructions\": \"instructions4\",\n" +
+                        "                          \"ingredients\": [\n" +
+                        "                            \"ingredient5\",\n" +
+                        "                            \"ingredient6\"\n" +
+                        "                          ],\n" +
+                        "                          \"vegetarian\": true\n" +
+                        "                        }"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.instructions", is("instructions4")))
@@ -187,16 +186,15 @@ class RecipesResourceTest {
         var recipes = createTestRecipes();
         var recipeId = recipes.get(0).getId();
 
-        mockMvc.perform(put("/api/recipes/" + recipeId).contentType(MediaType.APPLICATION_JSON).content("""
-                        {
-                          "servings": 7,
-                          "instructions": "instructions4",
-                          "ingredients": [
-                            "ingredient5",
-                            "ingredient6"
-                          ],
-                          "vegetarian": true
-                        }"""))
+        mockMvc.perform(put("/api/recipes/" + recipeId).contentType(MediaType.APPLICATION_JSON).content("{\n" +
+                        "                          \"servings\": 7,\n" +
+                        "                          \"instructions\": \"instructions4\",\n" +
+                        "                          \"ingredients\": [\n" +
+                        "                            \"ingredient5\",\n" +
+                        "                            \"ingredient6\"\n" +
+                        "                          ],\n" +
+                        "                          \"vegetarian\": true\n" +
+                        "                        }"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.instructions", is("instructions4")))
@@ -211,16 +209,15 @@ class RecipesResourceTest {
     void givenRecipes_whenUpdateNonExistingRecipe_thenReturnNotFound() throws Exception {
         createTestRecipes();
 
-        mockMvc.perform(put("/api/recipes/123456").contentType(MediaType.APPLICATION_JSON).content("""
-                        {
-                          "servings": 7,
-                          "instructions": "instructions4",
-                          "ingredients": [
-                            "ingredient5",
-                            "ingredient6"
-                          ],
-                          "vegetarian": true
-                        }"""))
+        mockMvc.perform(put("/api/recipes/123456").contentType(MediaType.APPLICATION_JSON).content("{\n" +
+                        "                          \"servings\": 7,\n" +
+                        "                          \"instructions\": \"instructions4\",\n" +
+                        "                          \"ingredients\": [\n" +
+                        "                            \"ingredient5\",\n" +
+                        "                            \"ingredient6\"\n" +
+                        "                          ],\n" +
+                        "                          \"vegetarian\": true\n" +
+                        "                        }"))
                 .andExpect(status().isNotFound());
     }
 

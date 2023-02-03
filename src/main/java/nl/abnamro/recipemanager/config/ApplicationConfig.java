@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.stream.Collectors;
+
 @Configuration
 public class ApplicationConfig {
     @Bean
@@ -22,7 +24,7 @@ public class ApplicationConfig {
 
     Converter<Recipe, RecipeResponse> recipeConverter = context -> {
         var recipe = context.getDestination();
-        recipe.setIngredients(context.getSource().getIngredients().stream().map(Ingredient::getName).toList());
+        recipe.setIngredients(context.getSource().getIngredients().stream().map(Ingredient::getName).collect(Collectors.toList()));
         return recipe;
     };
 }

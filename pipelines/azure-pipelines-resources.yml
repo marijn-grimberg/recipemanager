@@ -1,0 +1,27 @@
+trigger:
+- feature/pipelines
+
+name: Deploy Bicep files
+
+variables:
+  vmImageName: 'ubuntu-latest'
+
+  azureServiceConnection: 'create-resources'
+  resourceGroupName: '1-f4b8adcb-playground-sandbox'
+  location: 'Central US'
+  templateFile: 'pipelines/main.bicep'
+pool:
+  vmImage: $(vmImageName)
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: '$(azureServiceConnection)'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '$(resourceGroupName)'
+    location: '$(location)'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(templateFile)'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
