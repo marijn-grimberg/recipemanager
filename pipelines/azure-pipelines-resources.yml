@@ -1,5 +1,4 @@
-trigger:
-  - feature/pipelines
+trigger: none
 
 name: Deploy Bicep files
 
@@ -7,8 +6,8 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   azureServiceConnection: 'create-resources'
-  resourceGroupName: '1-f4b8adcb-playground-sandbox'
-  location: 'Central US'
+  resourceGroupName: '1-041be5bb-playground-sandbox'
+  location: 'East US'
   templateFile: 'pipelines/main.bicep'
 pool:
   vmImage: $(vmImageName)

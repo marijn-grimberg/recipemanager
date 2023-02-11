@@ -1,16 +1,23 @@
-resources:
-  pipelines:
-    - pipeline: azure-pipelines-resources
-      source: Deploy Bicep files
-      trigger: true
+trigger: none
 
 name: Build artifact and publish to feed
+
+variables:
+  vmImageName: 'ubuntu-latest'
 
 pool:
   vmImage: $(vmImageName)
 
 steps:
+  - checkout: self
+    persistCredentials: true
+  - script: |
+      git config --global user.email "cloud_user_p_7a7d18f8@azurelabs.linuxacademy.com"
+      git config --global user.name "Marijn Grimberg"
+      git fetch
+      git checkout feature/pipelines-2
   - task: Maven@3
+    displayName: 'prepare release'
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
@@ -19,4 +26,17 @@ steps:
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
-      goals: 'package'
+      goals: '-B release:prepare'
+  - task: Maven@3
+    displayName: 'perform release'
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      options: '-Dusername="recipe-manager" -Dpassword="$(System.AccessToken)"'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      jdkArchitectureOption: 'x64'
+      mavenAuthenticateFeed: true
+      publishJUnitResults: false
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: 'release:perform'
