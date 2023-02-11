@@ -1,0 +1,22 @@
+resources:
+  pipelines:
+    - pipeline: azure-pipelines-resources
+      source: Deploy Bicep files
+      trigger: true
+
+name: Build artifact and publish to feed
+
+pool:
+  vmImage: $(vmImageName)
+
+steps:
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: 'package'
