@@ -1,6 +1,6 @@
 resources:
   pipelines:
-    - pipeline: azure-pipelines-resources
+    - pipeline: recipe-manager-resources
       source: Deploy Bicep files
       trigger: true
 
