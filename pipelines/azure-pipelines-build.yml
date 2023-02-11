@@ -3,6 +3,9 @@ trigger:
 
 name: Build artifact and publish to feed
 
+variables:
+  vmImageName: 'ubuntu-latest'
+
 pool:
   vmImage: $(vmImageName)
 
