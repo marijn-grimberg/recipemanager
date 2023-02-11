@@ -7,7 +7,7 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   azureServiceConnection: 'create-resources'
-  resourceGroupName: '1-f4b8adcb-playground-sandbox'
+  resourceGroupName: '1-041be5bb-playground-sandbox'
   location: 'Central US'
   templateFile: 'pipelines/main.bicep'
 pool:
