@@ -1,5 +1,5 @@
 trigger:
-  - feature/pipelines
+  - feature/pipelines-2
 
 name: Deploy Bicep files
 
