@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipesService {
@@ -32,12 +33,12 @@ public class RecipesService {
         return recipes.stream()
                 .map(recipe -> modelMapper.map(recipe, RecipeResponse.class))
                 .filter(searchCriteria::filterOnIngredients)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public RecipeResponse addRecipe(RecipeRequest recipeRequest) {
         var recipe = modelMapper.map(recipeRequest, Recipe.class);
-        recipe.setIngredients(recipeRequest.getIngredients().stream().map(this::fetchIngredient).toList());
+        recipe.setIngredients(recipeRequest.getIngredients().stream().map(this::fetchIngredient).collect(Collectors.toList()));
         return modelMapper.map(recipeRepository.save(recipe), RecipeResponse.class);
     }
 
@@ -47,7 +48,7 @@ public class RecipesService {
         }
         var recipe = modelMapper.map(recipeRequest, Recipe.class);
         recipe.setId(id);
-        recipe.setIngredients(recipeRequest.getIngredients().stream().map(this::fetchIngredient).toList());
+        recipe.setIngredients(recipeRequest.getIngredients().stream().map(this::fetchIngredient).collect(Collectors.toList()));
         return modelMapper.map(recipeRepository.save(recipe), RecipeResponse.class);
     }
 
@@ -62,17 +63,11 @@ public class RecipesService {
 
     public RecipeResponse getRecipe(long id) {
         var recipe = recipeRepository.findById(id);
-        if (recipe.isEmpty()) {
-            return null;
-        }
-        return modelMapper.map(recipe.get(), RecipeResponse.class);
+        return recipe.map(value -> modelMapper.map(value, RecipeResponse.class)).orElse(null);
     }
 
     private Ingredient fetchIngredient(String ingredientName) {
         var ingredient = ingredientRepository.findByName(ingredientName);
-        if (ingredient.isEmpty()) {
-            return ingredientRepository.save(new Ingredient(ingredientName));
-        }
-        return ingredient.get();
+        return ingredient.orElseGet(() -> ingredientRepository.save(new Ingredient(ingredientName)));
     }
 }
