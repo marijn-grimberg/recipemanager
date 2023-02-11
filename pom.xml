@@ -92,4 +92,7 @@
         </plugins>
 	</build>
 
+	<scm>
+		<connection>scm:git:https://github.com/marijn-grimberg/recipemanager.git</connection>
+	</scm>
 </project>
