@@ -1,8 +1,5 @@
-resources:
-  pipelines:
-    - pipeline: recipe-manager-resources
-      source: Deploy Bicep files
-      trigger: true
+trigger:
+  - feature/pipelines-2
 
 name: Build artifact and publish to feed
 
