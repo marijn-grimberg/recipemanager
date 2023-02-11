@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>nl.abnamro</groupId>
 	<artifactId>recipemanager</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<name>recipemanager</name>
 	<description>Spring Boot project for REST API for CRUD operations on recipes</description>
 	<properties>
@@ -101,6 +101,6 @@
 
 	<scm>
 		<connection>scm:git:https://github.com/marijn-grimberg/recipemanager.git</connection>
-	  <tag>HEAD</tag>
+	  <tag>recipemanager-0.0.2</tag>
   </scm>
 </project>
