@@ -91,8 +91,33 @@
         </plugins>
 	</build>
 
+	<repositories>
+		<repository>
+			<id>recipe-manager</id>
+			<url>https://pkgs.dev.azure.com/clouduserp7a7d18f8/recipe-manager/_packaging/recipe-manager/maven/v1</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<repository>
+			<id>recipe-manager</id>
+			<url>https://pkgs.dev.azure.com/clouduserp7a7d18f8/recipe-manager/_packaging/recipe-manager/maven/v1</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</distributionManagement>
+
 	<scm>
 		<connection>scm:git:https://github.com/marijn-grimberg/recipemanager.git</connection>
-	  <tag>HEAD</tag>
-  </scm>
+	  	<tag>HEAD</tag>
+  	</scm>
 </project>
