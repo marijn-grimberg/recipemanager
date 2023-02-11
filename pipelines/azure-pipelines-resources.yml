@@ -8,7 +8,7 @@ variables:
 
   azureServiceConnection: 'create-resources'
   resourceGroupName: '1-041be5bb-playground-sandbox'
-  location: 'Central US'
+  location: 'East US'
   templateFile: 'pipelines/main.bicep'
 pool:
   vmImage: $(vmImageName)
