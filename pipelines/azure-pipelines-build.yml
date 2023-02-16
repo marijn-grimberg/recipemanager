@@ -1,4 +1,5 @@
-trigger: none
+trigger:
+- feature/pipelines-2
 
 name: Build artifact and publish to feed
 
@@ -21,6 +22,7 @@ steps:
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
+      options: '-DscmCommentPrefix=***NO_CI***'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.11'
       jdkArchitectureOption: 'x64'

@@ -6,8 +6,8 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   azureServiceConnection: 'create-resources'
-  resourceGroupName: '1-041be5bb-playground-sandbox'
-  location: 'East US'
+  resourceGroupName: '1-5bb8cc27-playground-sandbox'
+  location: 'West US'
   templateFile: 'pipelines/main.bicep'
 pool:
   vmImage: $(vmImageName)

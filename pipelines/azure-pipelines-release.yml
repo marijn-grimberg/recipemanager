@@ -1,0 +1,37 @@
+parameters:
+- name: version
+  displayName: Jar Version
+  type: string
+  default: latest
+
+resources:
+  pipelines:
+  - pipeline: recipe-manager (1)
+    source: recipe-manager (1)
+    trigger: 
+      branches:
+        include: 
+        - feature/pipelines-2
+
+variables:
+  vmImageName: 'ubuntu-latest'
+
+pool:
+  vmImage: $(vmImageName)
+
+steps:
+  - task: DownloadPackage@1
+    inputs:
+      packageType: 'maven'
+      feed: '404ebd55-94f4-4285-949c-78f27ba4de1a/c13a538b-fc9d-4556-a450-c403e82e38e4'
+      definition: 'nl.abnamro:recipemanager'
+      version: ${{ parameters.version }}
+      files: '*[0-9].jar'
+      downloadPath: '$(System.ArtifactsDirectory)'
+  - task: AzureWebApp@1
+    inputs:
+      azureSubscription: 'create-resources'
+      appType: 'webAppLinux'
+      appName: 'recipemanager-yl3g2ltpow2xq'
+      package: '$(System.ArtifactsDirectory)/**/*.jar'
+      deploymentMethod: 'runFromPackage'
